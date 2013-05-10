@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Globalization;
 using System.Net;
 using System.Web.Script.Serialization;
@@ -29,7 +30,7 @@ namespace ForecastIO
             }
 
             var serializer = new JavaScriptSerializer();
-            var dataObject = serializer.Deserialize<ForecastIOReponse>(result);
+            var dataObject = JsonConvert.DeserializeObject<ForecastIOReponse>(result);
 
             return dataObject;
 

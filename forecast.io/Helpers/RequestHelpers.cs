@@ -5,6 +5,16 @@ namespace ForecastIO
 {
     public static class RequestHelpers
     {
+        static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        static readonly double MaxUnixSeconds = (DateTime.MaxValue - UnixEpoch).TotalSeconds;
+
+        public static DateTime UnixTimeStampToDateTime(this long unixTimeStamp)
+        {
+            return unixTimeStamp > MaxUnixSeconds
+                ? UnixEpoch.AddMilliseconds((unixTimeStamp))
+                : UnixEpoch.AddSeconds(unixTimeStamp);
+        }
+
         public static string FormatResponse(string _input)
         {
             _input = _input.Replace("isd-stations", "isd_stations");
